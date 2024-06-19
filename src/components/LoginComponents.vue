@@ -48,6 +48,7 @@ export default {
           let forCookie = JSON.stringify(userData);
           this.$store.commit("SET_LOGIN", forCookie);
           cookie.set("userdata", forCookie, { expires: 1 });
+          this.$router.push({ path: "/profile" });
         });
     },
   },

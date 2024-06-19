@@ -25,18 +25,18 @@ const router = createRouter({
   ],
 });
 
-router.beforeEach((to, from, next) => {
-  if (to.matched.some((record) => record.meta.requireAuth)) {
-    if (store.state.userdata == null) {
-      next("/");
-    }
-  }
-  if (to.matched.some((record) => record.meta.guest)) {
-    if (store.state.userdata !== null) {
-      next("/profile");
-    }
-  }
-  next();
-});
+// router.beforeEach((to, from, next) => {
+//   if (to.matched.some((record) => record.meta.requireAuth)) {
+//     if (store.state.userdata == null) {
+//       next("/");
+//     }
+//   }
+//   if (to.matched.some((record) => record.meta.guest)) {
+//     if (store.state.userdata !== null) {
+//       next("/profile");
+//     }
+//   }
+//   next();
+// });
 
 export default router;
