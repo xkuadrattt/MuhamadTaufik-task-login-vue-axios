@@ -9,7 +9,10 @@ if (cookie.getJSON("userdata") !== undefined) {
   let auth = cookie.getJSON("userdata");
   store.commit("SET_LOGIN", auth);
   axiosInit.interceptors.request.use((config) => {
-    config.headers["Authorization"] = `Bearer ${auth.access_token}`;
+    const token = store.state.token;
+    token
+      ? (config.headers["Authorization"] = `Bearer ${auth.access_token}`)
+      : delete config.headers["Authorization"];
     return config;
   });
   (error) => Promise.reject(error);

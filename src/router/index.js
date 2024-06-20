@@ -1,6 +1,4 @@
 import { createRouter, createWebHistory } from "vue-router";
-import LoginPage from "@/views/LoginPage.vue";
-// import ProfilePage from "@/views/ProfilePage.vue";
 import store from "@/store";
 
 const router = createRouter({
@@ -8,8 +6,16 @@ const router = createRouter({
   routes: [
     {
       path: "/",
+      name: "homepage",
+      component: () => import("@/views/HomePage.vue"),
+      meta: {
+        guest: true,
+      },
+    },
+    {
+      path: "/login",
       name: "loginPage",
-      component: LoginPage,
+      component: () => import("@/views/LoginPage.vue"),
       meta: {
         guest: true,
       },
@@ -25,18 +31,21 @@ const router = createRouter({
   ],
 });
 
-// router.beforeEach((to, from, next) => {
-//   if (to.matched.some((record) => record.meta.requireAuth)) {
-//     if (store.state.userdata == null) {
-//       next("/");
-//     }
-//   }
-//   if (to.matched.some((record) => record.meta.guest)) {
-//     if (store.state.userdata !== null) {
-//       next("/profile");
-//     }
-//   }
-//   next();
-// });
-
+router.beforeEach((to, from, next) => {
+  if (to.matched.some((record) => record.meta.requireAuth)) {
+    if (!store.getters.isAuthenticated) {
+      next({ path: "/login" });
+    } else {
+      next();
+    }
+  } else if (to.matched.some((record) => record.meta.guest)) {
+    if (store.getters.isAuthenticated) {
+      next({ path: "/profile" });
+    } else {
+      next();
+    }
+  } else {
+    next();
+  }
+});
 export default router;

@@ -11,13 +11,12 @@
 
 <script>
 import { mapState } from "vuex";
-import cookie from "js-cookie";
 export default {
   computed: mapState(["userdata"]),
   methods: {
     handleSignOut() {
-      cookie.remove("userdata");
-      this.$router.push({ path: "/" });
+      this.$store.commit("SET_LOGOUT");
+      this.$router.push("/");
     },
   },
 };

@@ -1,13 +1,26 @@
+import Cookies from "js-cookie";
 import { createStore } from "vuex";
 const store = createStore({
   state: {
     userdata: null,
+    token: Cookies.get("token") || "",
   },
-  getters: {},
+  getters: {
+    isAuthenticated: (state) => state.token,
+  },
   mutations: {
     SET_LOGIN(state, payload) {
       state.userdata = payload;
-      console.log("state userdata =", state.userdata);
+      Cookies.set("userdata", payload);
+    },
+    SET_LOGOUT(state) {
+      state.userdata = null;
+      state.token = "";
+      Cookies.remove("token");
+    },
+    SET_TOKEN(state, token) {
+      state.token = token;
+      Cookies.set("token", token, { expires: 1 / 48 });
     },
   },
   actions: {},

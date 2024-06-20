@@ -16,7 +16,6 @@
   </form>
 </template>
 <script>
-import cookie from "js-cookie";
 export default {
   data() {
     return {
@@ -39,17 +38,17 @@ export default {
       const headers = {
         Authorization: `Bearer ${data.access_token}`,
       };
+      this.$store.commit("SET_TOKEN", data.access_token);
       this.$axios
         .get("https://api.escuelajs.co/api/v1/auth/profile", {
           headers: headers,
         })
         .then((response) => {
-          let userData = Object.assign(response.data, data);
-          let forCookie = JSON.stringify(userData);
-          this.$store.commit("SET_LOGIN", forCookie);
-          cookie.set("userdata", forCookie, { expires: 1 });
-          this.$router.push({ path: "/profile" });
+          console.log(response);
+          const userdata = JSON.stringify(response.data);
+          this.$store.commit("SET_LOGIN", userdata);
         });
+      this.$router.push("/profile");
     },
   },
 };
