@@ -1,5 +1,5 @@
 <template>
-  <form @submit.prevent="handleSubmit">
+  <form @submit.prevent="handleSubmit" class="form-input">
     <div class="email">
       <label for="email">Email</label>
       <input
