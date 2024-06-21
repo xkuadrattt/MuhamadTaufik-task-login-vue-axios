@@ -1,18 +1,25 @@
 <template>
   <form @submit.prevent="handleSubmit" class="form-input">
-    <div class="email">
-      <label for="email">Email</label>
+    <div class="mb-3">
+      <label for="email" class="form-label">Email</label>
       <input
         type="email"
         placeholder="Masukan Email yang valid"
         v-model="email"
+        class="form-control"
       />
     </div>
-    <div class="password">
-      <label for="password">Password</label>
-      <input type="password" id="password" v-model="password" />
+    <div class="mb-3">
+      <label for="password" class="form-label">Password</label>
+      <input
+        type="password"
+        class="form-control"
+        id="password"
+        v-model="password"
+      />
     </div>
-    <button type="submit">Login</button>
+    <button class="btn btn-primary" type="submit">Login</button>
+    <p>{{ msgError }}</p>
   </form>
 </template>
 <script>
@@ -21,18 +28,23 @@ export default {
     return {
       email: "",
       password: "",
+      msgError: "",
     };
   },
   methods: {
     handleSubmit() {
-      this.$axios
-        .post("https://api.escuelajs.co/api/v1/auth/login", {
-          email: this.email,
-          password: this.password,
-        })
-        .then((response) => {
-          this.getProfile(response.data);
-        });
+      if (this.email || this.password) {
+        this.$axios
+          .post("https://api.escuelajs.co/api/v1/auth/login", {
+            email: this.email,
+            password: this.password,
+          })
+          .then((response) => {
+            this.getProfile(response.data);
+          });
+      } else {
+        this.msgError = "galat. mohon periksa";
+      }
     },
     getProfile(data) {
       const headers = {
@@ -44,7 +56,6 @@ export default {
           headers: headers,
         })
         .then((response) => {
-          console.log(response);
           const userdata = JSON.stringify(response.data);
           this.$store.commit("SET_LOGIN", userdata);
         });

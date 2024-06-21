@@ -4,7 +4,7 @@ import router from "./router";
 import store from "@/store";
 import axiosInit from "./api";
 import cookie from "js-cookie";
-import "@/assets/scss/style.scss";
+import "bootstrap/dist/css/bootstrap.css";
 
 if (cookie.getJSON("userdata") !== undefined) {
   let auth = cookie.getJSON("userdata");
