@@ -3,7 +3,7 @@ import { createStore } from "vuex";
 const store = createStore({
   state: {
     userdata: null,
-    token: Cookies.get("token") || "",
+    token: Cookies.get("token") || null,
   },
   getters: {
     isAuthenticated: (state) => state.token,
@@ -11,12 +11,10 @@ const store = createStore({
   mutations: {
     SET_LOGIN(state, payload) {
       state.userdata = payload;
-
-      Cookies.set("userdata", payload);
     },
     SET_LOGOUT(state) {
       state.userdata = null;
-      state.token = "";
+      state.token = null;
       Cookies.remove("token");
       Cookies.remove("userdata");
     },

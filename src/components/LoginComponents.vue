@@ -23,6 +23,8 @@
   </form>
 </template>
 <script>
+import Cookies from "js-cookie";
+
 export default {
   data() {
     return {
@@ -57,6 +59,7 @@ export default {
         })
         .then((response) => {
           const userdata = JSON.stringify(response.data);
+          Cookies.set("userdata", userdata);
           this.$store.commit("SET_LOGIN", userdata);
         });
       this.$router.push("/profile");
