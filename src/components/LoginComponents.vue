@@ -1,5 +1,9 @@
 <template>
-  <form @submit.prevent="handleSubmit" class="form-input">
+  <form
+    @submit.prevent="handleSubmit"
+    class="form-input max-w-650 mt-10 p-8 border-purple rounded relative"
+  >
+    <span class="placeholder">Login</span>
     <div class="mb-3">
       <label for="email" class="form-label">Email</label>
       <input
@@ -19,50 +23,44 @@
       />
     </div>
     <button class="btn btn-primary" type="submit">Login</button>
-    <p>{{ msgError }}</p>
   </form>
 </template>
 <script>
-import Cookies from "js-cookie";
+import cookie from "js-cookie";
 
 export default {
   data() {
     return {
       email: "",
       password: "",
-      msgError: "",
     };
   },
   methods: {
     handleSubmit() {
-      if (this.email || this.password) {
-        this.$axios
-          .post("https://api.escuelajs.co/api/v1/auth/login", {
-            email: this.email,
-            password: this.password,
-          })
-          .then((response) => {
-            this.getProfile(response.data);
-          });
-      } else {
-        this.msgError = "galat. mohon periksa";
-      }
-    },
-    getProfile(data) {
-      const headers = {
-        Authorization: `Bearer ${data.access_token}`,
-      };
-      this.$store.commit("SET_TOKEN", data.access_token);
       this.$axios
-        .get("https://api.escuelajs.co/api/v1/auth/profile", {
-          headers: headers,
+        .post("/auth/login", {
+          email: this.email,
+          password: this.password,
         })
         .then((response) => {
-          const userdata = JSON.stringify(response.data);
-          Cookies.set("userdata", userdata);
-          this.$store.commit("SET_LOGIN", userdata);
+          console.log(response);
+          this.getDataUser(response.data);
         });
-      this.$router.push("/profile");
+    },
+    getDataUser(data) {
+      this.$axios
+        .get("auth/profile", {
+          headers: {
+            Authorization: "Bearer " + data.access_token,
+          },
+        })
+        .then((res) => {
+          let userdata = Object.assign(res.data, data);
+          let forcookie = JSON.stringify(userdata);
+          cookie.set("userdata", forcookie, { expires: 1 });
+          this.$store.commit("SET_LOGIN", forcookie);
+          this.$router.push({ path: "/profile" });
+        });
     },
   },
 };

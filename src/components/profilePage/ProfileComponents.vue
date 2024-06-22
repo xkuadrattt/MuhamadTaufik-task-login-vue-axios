@@ -11,23 +11,22 @@
   </section>
 </template>
 
-<script>
-export default {
-  data() {
-    return {
-      user: null,
-    };
-  },
-  computed: {
-    userdata() {
-      return this.$store.state.userdata;
-    },
-  },
-  methods: {
-    handleSignOut() {
-      this.$store.commit("SET_LOGOUT");
-      this.$router.push("/");
-    },
-  },
+<script setup>
+import cookie from "js-cookie";
+import { computed } from "vue";
+import { useRouter } from "vue-router";
+import { useStore } from "vuex";
+
+const store = useStore();
+const router = useRouter();
+const handleSignOut = () => {
+  cookie.remove("userdata");
+  store.commit("SET_LOGOUT");
+  router.push({ path: "/login" });
 };
+
+const userdata = computed(() => {
+  const userdata = cookie.get("userdata");
+  return userdata ? JSON.parse(userdata) : null;
+});
 </script>

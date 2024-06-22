@@ -33,19 +33,16 @@ const router = createRouter({
 
 router.beforeEach((to, from, next) => {
   if (to.matched.some((record) => record.meta.requireAuth)) {
-    if (!store.getters.isAuthenticated) {
-      next({ path: "/login" });
-    } else {
-      next();
+    if (store.state.userdata == null) {
+      next("/login");
     }
-  } else if (to.matched.some((record) => record.meta.guest)) {
-    if (store.getters.isAuthenticated) {
-      next({ path: "/profile" });
-    } else {
-      next();
-    }
-  } else {
-    next();
   }
+  if (to.matched.some((record) => record.meta.guest)) {
+    if (store.state.userdata !== null) {
+      next("/profile");
+    }
+  }
+  next();
 });
+
 export default router;

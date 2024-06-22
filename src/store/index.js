@@ -1,12 +1,14 @@
 import Cookies from "js-cookie";
 import { createStore } from "vuex";
-const store = createStore({
+export default createStore({
   state: {
     userdata: null,
-    token: Cookies.get("token") || null,
+    user: null,
   },
   getters: {
-    isAuthenticated: (state) => state.token,
+    getUser(state) {
+      return state.user;
+    },
   },
   mutations: {
     SET_LOGIN(state, payload) {
@@ -14,16 +16,12 @@ const store = createStore({
     },
     SET_LOGOUT(state) {
       state.userdata = null;
-      state.token = null;
-      Cookies.remove("token");
-      Cookies.remove("userdata");
+      state.user = null;
     },
-    SET_TOKEN(state, token) {
-      state.token = token;
-      Cookies.set("token", token, { expires: 1 / 48 });
+    SET_USER(state, user) {
+      state.user = user;
     },
   },
   actions: {},
+  modules: {},
 });
-
-export default store;

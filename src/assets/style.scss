@@ -1,0 +1,35 @@
+.max-w-650 {
+  max-width: 650px;
+}
+
+.mt-10 {
+  margin: 160px auto;
+}
+
+.border-purple {
+  border: 1px solid rgba(219, 151, 251, 1);
+}
+
+.p-8 {
+  padding: calc(8 * 4px);
+}
+.rounded {
+  border-radius: 8px;
+}
+
+.relative {
+  position: relative;
+}
+
+.placeholder {
+  position: absolute;
+  top: -14px;
+  left: 8px;
+  padding: 0 8px;
+  font-size: 14px;
+  background-color: white;
+  color: black;
+  z-index: 2;
+  opacity: 1;
+  cursor: default;
+}

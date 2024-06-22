@@ -5,7 +5,7 @@ import { useStore } from "vuex";
 
 const store = useStore();
 const profileLink = function () {
-  return store.state.token;
+  return store.state.userdata;
 };
 
 computed(() => {
