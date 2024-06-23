@@ -20,6 +20,7 @@ const router = createRouter({
         guest: true,
       },
     },
+
     {
       path: "/profile",
       name: "profile",
@@ -37,11 +38,7 @@ router.beforeEach((to, from, next) => {
       next("/login");
     }
   }
-  if (to.matched.some((record) => record.meta.guest)) {
-    if (store.state.userdata !== null) {
-      next("/profile");
-    }
-  }
+
   next();
 });
 

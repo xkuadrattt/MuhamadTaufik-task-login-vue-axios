@@ -18,7 +18,9 @@ computed(() => {
     <div class="container d-flex gap-4">
       <nav class="navbar navbar-expand-lg bg-body-tertiary">
         <RouterLink to="/" class="mx-4">Home</RouterLink>
-        <RouterLink to="/login" class="mx-4">Login</RouterLink>
+        <RouterLink to="/login" class="mx-4" v-if="!profileLink()"
+          >Login</RouterLink
+        >
         <RouterLink to="/profile" class="mx-4" v-if="profileLink()"
           >Profile</RouterLink
         >

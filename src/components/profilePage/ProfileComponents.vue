@@ -19,6 +19,7 @@ import { useStore } from "vuex";
 
 const store = useStore();
 const router = useRouter();
+
 const handleSignOut = () => {
   cookie.remove("userdata");
   store.commit("SET_LOGOUT");

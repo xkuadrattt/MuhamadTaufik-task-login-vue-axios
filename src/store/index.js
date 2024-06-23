@@ -1,9 +1,7 @@
-import Cookies from "js-cookie";
 import { createStore } from "vuex";
 export default createStore({
   state: {
     userdata: null,
-    user: null,
   },
   getters: {
     getUser(state) {
@@ -16,7 +14,6 @@ export default createStore({
     },
     SET_LOGOUT(state) {
       state.userdata = null;
-      state.user = null;
     },
     SET_USER(state, user) {
       state.user = user;
