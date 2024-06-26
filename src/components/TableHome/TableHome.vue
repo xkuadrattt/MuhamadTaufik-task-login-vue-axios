@@ -18,6 +18,7 @@
         <td>{{ item.description }}</td>
         <td>{{ item["category name"] }}</td>
         <td>{{ item.price }}</td>
+        <td><button @click="handleEdit(item)">Edit</button></td>
       </tr>
     </tbody>
   </table>
@@ -46,14 +47,17 @@ export default {
             description: item.description,
             "category name": item.category.name,
             price: item.price,
-            images: item.images[0].replace(
-              /[~`!@#$%^&*()+={}\[\];\'\"<>,\\\\?-_]/g,
-              ""
-            ),
+            categoryId: item.category?.id,
+            id: item.id,
           });
         });
         this.isLoading = !this.isLoading;
       });
+    },
+    handleEdit(item) {
+      this.$router.push(
+        `/editPage/?id=${item.id}&categoryId=${item.categoryId}`
+      );
     },
   },
   mounted() {

@@ -29,6 +29,14 @@ const router = createRouter({
         requireAuth: true,
       },
     },
+    {
+      path: "/editPage/",
+      name: "editPage",
+      component: () => import("@/components/editComponents/EditComponents.vue"),
+      meta: {
+        requireAuth: true,
+      },
+    },
   ],
 });
 
