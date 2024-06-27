@@ -1,29 +1,34 @@
 <template>
-  <form
-    @submit.prevent="handleSubmit"
-    class="form-input max-w-650 mt-10 p-8 border-purple rounded relative"
-  >
-    <span class="placeholder">Login</span>
-    <div class="mb-3">
-      <label for="email" class="form-label">Email</label>
-      <input
-        type="email"
-        placeholder="Masukan Email yang valid"
-        v-model="email"
-        class="form-control"
-      />
-    </div>
-    <div class="mb-3">
-      <label for="password" class="form-label">Password</label>
-      <input
-        type="password"
-        class="form-control"
-        id="password"
-        v-model="password"
-      />
-    </div>
-    <button class="btn btn-primary" type="submit">Login</button>
-  </form>
+  <div class="d-flex justify-content-center align-items-center min-vh-100">
+    <form
+      @submit.prevent="handleSubmit"
+      class="form-input p-4 border rounded shadow-lg bg-white"
+      style="max-width: 400px; width: 100%"
+    >
+      <h2 class="text-center mb-4">Login</h2>
+      <div class="mb-3">
+        <label for="email" class="form-label">Email</label>
+        <input
+          type="email"
+          placeholder="Masukan Email yang valid"
+          v-model="email"
+          class="form-control"
+          required
+        />
+      </div>
+      <div class="mb-3">
+        <label for="password" class="form-label">Password</label>
+        <input
+          type="password"
+          class="form-control"
+          id="password"
+          v-model="password"
+          required
+        />
+      </div>
+      <button class="btn btn-primary w-100" type="submit">Login</button>
+    </form>
+  </div>
 </template>
 <script>
 import cookie from "js-cookie";

@@ -1,30 +1,39 @@
 <template>
-  <form @submit.prevent="putData">
-    <div class="id">
-      <label for="id">id</label>
-      <input type="text" id="id" v-model="id" />
+  <form @submit.prevent="putData" class="shadow-lg p-4 bg-light rounded">
+    <h2 class="text-center mb-4">Edit Product</h2>
+    <div class="mb-3">
+      <label for="id" class="form-label">ID</label>
+      <input type="text" id="id" v-model="id" class="form-control" />
     </div>
-    <div class="titleproduct">
-      <label for="titleProduct">Title</label>
+    <div class="mb-3">
+      <label for="titleProduct" class="form-label">Title</label>
       <input
         type="text"
         id="titleProduct"
-        placeholder="title product"
+        placeholder="Title product"
         v-model="title"
+        class="form-control"
       />
     </div>
-    <div class="price">
-      <label for="price">Price</label>
-      <input type="text" id="price" placeholder="price" v-model="price" />
+    <div class="mb-3">
+      <label for="price" class="form-label">Price</label>
+      <input
+        type="text"
+        id="price"
+        placeholder="Price"
+        v-model="price"
+        class="form-control"
+      />
     </div>
-    <div class="description">
-      <label for="description">Description</label>
-      <textarea id="description" v-model="description"></textarea>
+    <div class="mb-3">
+      <label for="description" class="form-label">Description</label>
+      <textarea
+        id="description"
+        v-model="description"
+        class="form-control"
+      ></textarea>
     </div>
-    <!-- <div class="images">
-      <img :src="img" alt="img" class="w-60" />
-    </div> -->
-    <button>Edit</button>
+    <button class="btn btn-primary w-100" type="submit">Edit</button>
   </form>
 </template>
 

@@ -1,28 +1,50 @@
 <template>
-  <table class="table css-table">
-    <thead class="table-info">
-      <tr>
-        <th scope="col">No</th>
-        <th scope="col">Images</th>
-        <th scope="col">Name</th>
-        <th scope="col">Description</th>
-        <th scope="col">Category</th>
-        <th scope="col">Price</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr v-for="(item, index) in dataProduct" :key="item.id">
-        <td>{{ index + 1 }}</td>
-        <td><img :src="item.image" alt="image" class="w-60" /></td>
-        <td>{{ item.name }}</td>
-        <td>{{ item.description }}</td>
-        <td>{{ item["category name"] }}</td>
-        <td>{{ item.price }}</td>
-        <td><button @click="handleEdit(item)">Edit</button></td>
-      </tr>
-    </tbody>
-  </table>
-  <span v-if="isLoading">Data sedang dimuat. Terima kasih sudah menunggu</span>
+  <div class="container my-5">
+    <table class="table css-table table-hover">
+      <thead class="table-success">
+        <tr>
+          <th scope="col">No</th>
+          <th scope="col">Images</th>
+          <th scope="col">Name</th>
+          <th scope="col">Description</th>
+          <th scope="col">Category</th>
+          <th scope="col">Price</th>
+          <th scope="col">Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr v-for="(item, index) in dataProduct" :key="item.id">
+          <td>{{ index + 1 }}</td>
+          <td>
+            <img
+              :src="item.image"
+              alt="image"
+              class="img-thumbnail"
+              style="width: 60px; height: auto"
+            />
+          </td>
+          <td>{{ item.name }}</td>
+          <td>{{ item.description }}</td>
+          <td>{{ item["category name"] }}</td>
+          <td>{{ item.price }}</td>
+          <td>
+            <button
+              class="btn btn-sm btn-primary me-2"
+              @click="handleEdit(item)"
+            >
+              Edit
+            </button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+    <div v-if="isLoading" class="text-center my-4">
+      <div class="spinner-border text-primary" role="status">
+        <span class="visually-hidden">Loading...</span>
+      </div>
+      <p>Data sedang dimuat. Terima kasih sudah menunggu</p>
+    </div>
+  </div>
 </template>
 
 <script>
@@ -37,7 +59,7 @@ export default {
   },
   methods: {
     getListDataProduct() {
-      this.$axios.get("products?offset=0&limit=5").then((response) => {
+      this.$axios.get("products?offset=0&limit=10").then((response) => {
         let dataTable = response.data;
         console.log(dataTable);
         dataTable.forEach((item) => {

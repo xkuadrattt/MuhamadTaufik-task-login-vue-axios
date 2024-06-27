@@ -1,11 +1,10 @@
 <template>
   <section>
-    <div class="card" style="width: 18rem">
-      <img :src="userdata.avatar" class="card-img-top" alt="..." />
-      <div class="card-body">
+    <div class="card mx-auto mt-5 shadow-lg" style="width: 18rem">
+      <img :src="userdata.avatar" class="card-img-top" alt="User avatar" />
+      <div class="card-body text-center">
         <h5 class="card-title">{{ userdata.name }}</h5>
-        <p class="card-text">role : {{ userdata.role }}</p>
-        <a href="#" class="btn btn-warning" @click="handleSignOut">Sign out</a>
+        <p class="card-text">Role: {{ userdata.role }}</p>
       </div>
     </div>
   </section>
@@ -14,17 +13,6 @@
 <script setup>
 import cookie from "js-cookie";
 import { computed } from "vue";
-import { useRouter } from "vue-router";
-import { useStore } from "vuex";
-
-const store = useStore();
-const router = useRouter();
-
-const handleSignOut = () => {
-  cookie.remove("userdata");
-  store.commit("SET_LOGOUT");
-  router.push({ path: "/login" });
-};
 
 const userdata = computed(() => {
   const userdata = cookie.get("userdata");

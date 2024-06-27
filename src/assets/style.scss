@@ -47,14 +47,27 @@
     thead {
       display: none;
     }
+    tr {
+      display: block;
+      margin-bottom: 15px;
+      border-bottom: 1px solid #ddd;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+      margin: 48px 0;
+    }
     td {
       display: block;
-      margin: 16px 0;
+      padding: 10px;
+      position: relative;
+      border: none;
+      background: #fff;
+      border-radius: 8px;
+      margin: 10px 0;
     }
     td:before {
       display: grid;
       font-weight: 700;
     }
+
     td:nth-of-type(1) {
       background-color: #cff4fc;
       font-weight: 900;

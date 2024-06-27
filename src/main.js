@@ -5,6 +5,7 @@ import store from "@/store";
 import axiosInit from "./api";
 import cookie from "js-cookie";
 import "bootstrap/dist/css/bootstrap.css";
+import "bootstrap";
 import "@/assets/style.scss";
 
 if (cookie.getJSON("userdata") !== undefined) {
