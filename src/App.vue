@@ -42,7 +42,9 @@ computed(() => {
               <RouterLink to="/" class="nav-link">Home</RouterLink>
             </li>
             <li class="nav-item" v-if="!profileLink()">
-              <RouterLink to="/login" class="nav-link">Login</RouterLink>
+              <RouterLink to="/login" class="btn border border-primary"
+                >Login</RouterLink
+              >
             </li>
             <li class="nav-item" v-if="profileLink()">
               <RouterLink to="/profile" class="nav-link">Profile</RouterLink>

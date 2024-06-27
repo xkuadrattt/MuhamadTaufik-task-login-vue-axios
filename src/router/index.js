@@ -37,6 +37,14 @@ const router = createRouter({
         requireAuth: true,
       },
     },
+    {
+      path: "/shopping",
+      name: "shopping",
+      component: () => import("@/views/ShoppingPage.vue"),
+      meta: {
+        guest: true,
+      },
+    },
   ],
 });
 
