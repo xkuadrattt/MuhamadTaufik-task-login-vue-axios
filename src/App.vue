@@ -7,11 +7,7 @@ import cookie from "js-cookie";
 const router = useRouter();
 const store = useStore();
 
-const userdata = computed(() => store.state.userdata);
-
-const profileLink = computed(() => {
-  return userdata.value;
-});
+const userdataa = computed(() => store.state.userdata);
 
 const handleSignOut = () => {
   cookie.remove("userdata");
@@ -23,8 +19,8 @@ const handleSignOut = () => {
 <template>
   <header>
     <nav class="navbar navbar-expand-lg fixed-top custom-blur shadow-sm">
-      <div class="container-fluid">
-        <RouterLink to="/" class="navbar-brand">CalmlyShop</RouterLink>
+      <div class="container">
+        <span class="navbar-brand custom-brand">CalmlyShop</span>
         <button
           class="navbar-toggler"
           type="button"
@@ -40,20 +36,18 @@ const handleSignOut = () => {
             <li class="nav-item">
               <RouterLink to="/" class="nav-link">Home</RouterLink>
             </li>
-            <li class="nav-item" v-if="!profileLink">
+            <li class="nav-item" v-if="userdataa">
+              <RouterLink to="/profile" class="nav-link">Profile</RouterLink>
+            </li>
+            <li class="nav-item">
+              <RouterLink to="/shopping" class="nav-link">Shopping</RouterLink>
+            </li>
+            <li class="nav-item" v-if="!userdataa">
               <RouterLink to="/login" class="btn border border-primary"
                 >Login</RouterLink
               >
             </li>
-            <li class="nav-item" v-if="profileLink">
-              <RouterLink to="/profile" class="nav-link">Profile</RouterLink>
-            </li>
-            <li class="nav-item" v-if="userdata">
-              <RouterLink to="/shopping" class="nav-link">
-                {{ userdata.role === "customer" ? "Shopping" : "" }}
-              </RouterLink>
-            </li>
-            <li class="nav-item" v-if="profileLink">
+            <li class="nav-item" v-if="userdataa">
               <a
                 href="#"
                 class="nav-link btn btn-warning border border-warning"

@@ -53,6 +53,7 @@ import { computed, onMounted } from "vue";
 
 const store = useStore();
 const dataProduct = computed(() => store.state.dataProduct);
+const isLoading = computed(() => store.state.isLoading);
 
 onMounted(() => {
   store.dispatch("fetchDataProducts");

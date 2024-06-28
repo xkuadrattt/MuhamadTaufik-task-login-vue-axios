@@ -1,23 +1,40 @@
 <template>
-  <h1 v-if="userdata">
-    {{
-      userdata.role === "admin"
-        ? "Products Database"
-        : "Click Shopping on Navbar"
-    }}
-  </h1>
-  <h1 v-else>Homepage, Login for information</h1>
+  <h1 v-if="userdata && userdata.role === 'admin'">Products Database</h1>
 
-  <section class="mt-5" v-if="userdata.role === 'admin'">
-    <TableHome />
+  <div v-if="userdata && userdata.role === 'customer'" class="custom-login">
+    <h2>go shopping</h2>
+    <div class="custom-cta">
+      <RouterLink to="/shopping" class="btn btn-success border border-success"
+        >Shopping</RouterLink
+      >
+    </div>
+  </div>
+
+  <div v-if="!userdata" class="custom-login">
+    <h2>Login for information. or go shopping</h2>
+    <div class="custom-cta">
+      <RouterLink to="/shopping" class="btn btn-success border border-success"
+        >Shopping</RouterLink
+      >
+      <RouterLink to="/login" class="btn border border-primary"
+        >Login</RouterLink
+      >
+    </div>
+  </div>
+  <section class="mt-5" v-if="userdata">
+    <div v-if="userdata.role === 'admin'">
+      <TableHome />
+    </div>
   </section>
 </template>
 
 <script setup>
 import TableHome from "@/components/TableHome/TableHome.vue";
 import { computed } from "vue";
-import { useStore } from "vuex";
+import cookie from "js-cookie";
 
-const store = useStore();
-const userdata = computed(() => store.state.userdata);
+const userdata = computed(() => {
+  const userdata = cookie.get("userdata");
+  return userdata ? JSON.parse(userdata) : null;
+});
 </script>
