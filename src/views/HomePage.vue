@@ -1,15 +1,23 @@
 <template>
-  <h1 v-if="userdata">Product Database</h1>
+  <h1 v-if="userdata">
+    {{
+      userdata.role === "admin"
+        ? "Products Database"
+        : "Click Shopping on Navbar"
+    }}
+  </h1>
   <h1 v-else>Homepage, Login for information</h1>
 
-  <section class="mt-5">
-    <TableHome v-if="userdata" />
+  <section class="mt-5" v-if="userdata.role === 'admin'">
+    <TableHome />
   </section>
 </template>
 
 <script setup>
 import TableHome from "@/components/TableHome/TableHome.vue";
-import cookie from "js-cookie";
+import { computed } from "vue";
+import { useStore } from "vuex";
 
-const userdata = cookie.get("userdata");
+const store = useStore();
+const userdata = computed(() => store.state.userdata);
 </script>

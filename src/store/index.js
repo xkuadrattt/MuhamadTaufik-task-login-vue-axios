@@ -4,6 +4,7 @@ export default createStore({
   state: {
     userdata: null,
     dataProduct: [],
+    isLoading: true,
   },
   getters: {
     getUser(state) {
@@ -20,23 +21,28 @@ export default createStore({
     SET_USER(state, user) {
       state.user = user;
     },
+    SET_PRODUCTS(state, products) {
+      state.dataProduct = products;
+    },
+    SET_LOADING(state) {
+      state.isLoading = !state.isLoading;
+    },
   },
   actions: {
     async fetchDataProducts(context) {
       let response = await axiosInit.get("products?offset=0&limit=10");
       let dataTable = response.data;
-      console.log(dataTable);
-      dataTable.forEach((item) => {
-        context.store.state.dataProduct.push({
-          name: item.title,
-          image: item.category.image,
-          description: item.description,
-          "category name": item.category.name,
-          price: item.price,
-          categoryId: item.category?.id,
-          id: item.id,
-        });
-      });
+      const products = dataTable.map((item) => ({
+        name: item.title,
+        image: item.category.image,
+        description: item.description,
+        "category name": item.category.name,
+        price: item.price,
+        categoryId: item.category?.id,
+        id: item.id,
+      }));
+      context.commit("SET_PRODUCTS", products);
+      context.commit("SET_LOADING");
     },
   },
 });

@@ -47,43 +47,14 @@
   </div>
 </template>
 
-<script>
-// import Cookies from "js-cookie";
+<script setup>
+import { useStore } from "vuex";
+import { computed, onMounted } from "vue";
 
-export default {
-  data() {
-    return {
-      dataProduct: [],
-      isLoading: true,
-    };
-  },
-  methods: {
-    getListDataProduct() {
-      this.$axios.get("products?offset=0&limit=10").then((response) => {
-        let dataTable = response.data;
-        console.log(dataTable);
-        dataTable.forEach((item) => {
-          this.dataProduct.push({
-            name: item.title,
-            image: item.category.image,
-            description: item.description,
-            "category name": item.category.name,
-            price: item.price,
-            categoryId: item.category?.id,
-            id: item.id,
-          });
-        });
-        this.isLoading = !this.isLoading;
-      });
-    },
-    handleEdit(item) {
-      this.$router.push(
-        `/editPage/?id=${item.id}&categoryId=${item.categoryId}`
-      );
-    },
-  },
-  mounted() {
-    this.getListDataProduct();
-  },
-};
+const store = useStore();
+const dataProduct = computed(() => store.state.dataProduct);
+
+onMounted(() => {
+  store.dispatch("fetchDataProducts");
+});
 </script>
