@@ -32,9 +32,11 @@
 import TableHome from "@/components/TableHome/TableHome.vue";
 import { computed } from "vue";
 import cookie from "js-cookie";
+import { useStore } from "vuex";
 
 const userdata = computed(() => {
   const userdata = cookie.get("userdata");
   return userdata ? JSON.parse(userdata) : null;
 });
+console.log("userdata state", useStore().state.userdata);
 </script>

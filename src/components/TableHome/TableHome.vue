@@ -50,10 +50,15 @@
 <script setup>
 import { useStore } from "vuex";
 import { computed, onMounted } from "vue";
+import { useRouter } from "vue-router";
 
+const router = useRouter();
 const store = useStore();
 const dataProduct = computed(() => store.state.dataProduct);
 const isLoading = computed(() => store.state.isLoading);
+const handleEdit = (item) => {
+  router.push(`/editPage/?id=${item.id}`);
+};
 
 onMounted(() => {
   store.dispatch("fetchDataProducts");

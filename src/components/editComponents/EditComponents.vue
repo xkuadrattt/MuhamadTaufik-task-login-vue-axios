@@ -49,9 +49,6 @@ export default {
     };
   },
   methods: {
-    previewedFiles(event) {
-      this.images = event.target.files;
-    },
     getData() {
       this.$axios.get(`/products/${this.$route.query.id}`).then((response) => {
         let data = response.data;
